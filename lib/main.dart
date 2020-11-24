@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shake/shake.dart';
@@ -92,12 +93,14 @@ class _CubeButtonState extends State<CubeButton> {
   @override
   void initState() {
     super.initState();
-    detector = ShakeDetector.autoStart(
-      shakeThresholdGravity: 1.2,
-      onPhoneShake: () {
-        widget.onPressed(getUniqueRandomCubeNumber());
-      },
-    );
+    if (!kIsWeb) {
+      detector = ShakeDetector.autoStart(
+        shakeThresholdGravity: 1.2,
+        onPhoneShake: () {
+          widget.onPressed(getUniqueRandomCubeNumber());
+        },
+      );
+    }
   }
 
   @override
